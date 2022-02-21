@@ -1,48 +1,44 @@
 import request from 'superagent'
 
-const rootUrl = '/api/v1'
+const rootUrl = '/api/v1/portfolio/'
 
-export function getFruits () {
-  return request.get(`${rootUrl}/fruits`)
-    .then(res => {
-      return res.body.fruits
-    })
-    .catch(logError)
+export function getPortfolio() {
+  return request.get(`${rootUrl}/projects`)
+    .then(res => res.body.projects)
 }
-
-export function addFruit (fruit, token) {
+export function addProject(projects, token) {
   return request.post(`${rootUrl}/fruits`)
     .set('authorization', `Bearer ${token}`)
-    .send({ fruit })
-    .then(res => res.body.fruits)
+    .send({ project })
+    .then(res => res.body.projects)
     .catch(logError)
 }
 
-export function updateFruit (fruit, token) {
-  return request.put(`${rootUrl}/fruits`)
+export function updateProject(project, token) {
+  return request.put(`${rootUrl}/projects`)
     .set('authorization', `Bearer ${token}`)
-    .send({ fruit })
-    .then(res => res.body.fruits)
+    .send({ project })
+    .then(res => res.body.projects)
     .catch(logError)
 }
 
-export function deleteFruit (id, token) {
-  return request.delete(`${rootUrl}/fruits/${id}`)
+export function deleteProject(id, token) {
+  return request.delete(`${rootUrl}/projects/${id}`)
     .set('authorization', `Bearer ${token}`)
     .send()
-    .then(res => res.body.fruits)
+    .then(res => res.body.projects)
     .catch(logError)
 }
 
-export async function addUser (user) {
+export async function addUser(user) {
   return request.post(`${rootUrl}/users`)
     .send(user)
     .catch(logError)
 }
 
-function logError (err) {
+function logError(err) {
   if (err.message === 'Forbidden') {
-    throw new Error('Only the user who added the fruit may update and delete it')
+    throw new Error('Only the user who owns the project may update, edit and delete it')
   } else {
     // eslint-disable-next-line no-console
     console.error(

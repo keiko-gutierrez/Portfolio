@@ -1,17 +1,17 @@
 const express = require('express')
 // TODO: import checkJwt
-const db = require('../db/fruits')
+const db = require('../db/projects')
 
 const router = express.Router()
 
 module.exports = router
 
 // A public endpoint that anyone can access
-// GET /api/v1/fruits
+// GET /api/v1/projects
 router.get('/', async (req, res) => {
   try {
-    const fruits = await db.getFruits()
-    res.json({ fruits })
+    const projects = await db.getProjects()
+    res.json({ projects })
   } catch (err) {
     console.error(err)
     res.status(500).send(err.message)
@@ -19,18 +19,18 @@ router.get('/', async (req, res) => {
 })
 
 // use checkJwt as middleware
-// POST /api/v1/fruits
+// POST /api/v1/projects
 router.post('/', async (req, res) => {
-  const { fruit } = req.body
+  const { project } = req.body
   const auth0Id = req.user?.sub
-  const newFruit = {
+  const newProject = {
     added_by_user: auth0Id,
-    name: fruit.name,
-    calories: fruit.calories
+    name: project.name,
+    calories: project.calories
   }
   try {
-    const fruits = await db.addFruit(newFruit)
-    res.json({ fruits })
+    const projects = await db.addProject(newProject)
+    res.json({ projects })
   } catch (err) {
     console.error(err)
     res.status(500).send(err.message)
@@ -38,24 +38,24 @@ router.post('/', async (req, res) => {
 })
 
 // use checkJwt as middleware
-// PUT /api/v1/fruits
+// PUT /api/v1/projects
 router.put('/', async (req, res) => {
-  const { fruit } = req.body
+  const { project } = req.body
   const auth0Id = req.user?.sub
-  const fruitToUpdate = {
-    id: fruit.id,
+  const projectToUpdate = {
+    id: project.id,
     added_by_user: auth0Id,
-    name: fruit.name,
-    calories: fruit.calories
+    name: project.name,
+    calories: project.calories
   }
   try {
-    const fruits = await db.updateFruit(fruitToUpdate, auth0Id)
-    res.json({ fruits })
+    const projects = await db.updateProject(projectToUpdate, auth0Id)
+    res.json({ projects })
   } catch (err) {
     console.error(err)
     if (err.message === 'Unauthorized') {
       return res.status(403).send(
-        'Unauthorized: Only the user who added the fruit may update it'
+        'Unauthorized: Only the user who added the project may update it'
       )
     }
     res.status(500).send(err.message)
@@ -63,18 +63,18 @@ router.put('/', async (req, res) => {
 })
 
 // use checkJwt as middleware
-// DELETE /api/v1/fruits
+// DELETE /api/v1/projects
 router.delete('/:id', async (req, res) => {
   const id = Number(req.params.id)
   const auth0Id = req.user?.sub
   try {
-    const fruits = await db.deleteFruit(id, auth0Id)
-    res.json({ fruits })
+    const projects = await db.deleteProject(id, auth0Id)
+    res.json({ projects })
   } catch (err) {
     console.error(err)
     if (err.message === 'Unauthorized') {
       return res.status(403).send(
-        'Unauthorized: Only the user who added the fruit may delete it'
+        'Unauthorized: Only the user who added the project may delete it'
       )
     }
     res.status(500).send(err.message)

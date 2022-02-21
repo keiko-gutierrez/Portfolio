@@ -1,20 +1,37 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
+import {
+  Box,
+  Text,
+  VStack,
+  Grid
+} from '@chakra-ui/react'
 
-import Nav from './Nav'
-import Fruits from './Fruits'
-import { cacheUser } from '../auth0-utils'
-import { useAuth0 } from '@auth0/auth0-react'
-import Register from './Register'
+import NaviBar from './functions/NaviBar'
+import Header from './functions/Header'
+import Footer from './functions/Footer'
+import About from './pages/About'
+import Portfolio from './pages/Portfolio'
+import Contact from './pages/Contact'
+import Request from './pages/Request'
+import Home from './pages/Home'
 
 function App () {
-  cacheUser(useAuth0)
   return (
-    <Router>
-      <Route path='/' component={Nav} />
-      <Route exact path='/' component={Fruits} />
-      <Route exact path='/register' component={Register} />
-    </Router>
+    <>
+      <Header />
+      <div>
+        <NaviBar />
+        <Routes>
+          <Route path='/about' element={<About />} />
+          <Route path='/portfolio/:id' element={<Portfolio />} />
+          <Route path='/contact' element={<Contact />} />
+          <Route path='/request' element={<Request />} />
+          <Route path='/home' element={<Home />} />
+        </Routes>
+      </div>
+      <Footer />
+    </>
   )
 }
 
