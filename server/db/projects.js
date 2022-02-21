@@ -1,31 +1,26 @@
 const connection = require('./connection')
 
 module.exports = {
-  getProjects,
-  addProject,
-  updateProject,
-  deleteProject
-} /
-
-function sort (projectArray) {
-  const allprojects = [...projectArray]
-  allprojects.sort((a, b) => a.id - b.id)
-  return allprojects
+  getProjects
+  // addProject,
+  // updateProject,
+  // deleteProject
 }
 
 async function getProjects (db = connection) {
-  return db('projects').select().then(sort)
+  return db('projects').select()
+  // .then(sort)
 }
 
-async function addProject (project, db = connection) {
+/* async function addProject (project, db = connection) {
   return db('projects')
     .insert(project)
     .then(() => db)
     .then(getProjects)
-    .then(sort)
-}
+    // .then(sort)
+} */
 
-async function updateProject (newProject, user, db = connection) {
+/* async function updateProject (newProject, user, db = connection) {
   return db('projects')
     .where('id', newProject.id)
     .first()
@@ -37,10 +32,10 @@ async function updateProject (newProject, user, db = connection) {
     })
     .then(() => db)
     .then(getProjects)
-    .then(sort)
-}
+  // .then(sort)
+} */
 
-async function deleteProject (id, auth0Id, db = connection) {
+/* async function deleteProject (id, auth0Id, db = connection) {
   return db('projects')
     .where('id', id)
     .first()
@@ -52,8 +47,8 @@ async function deleteProject (id, auth0Id, db = connection) {
     })
     .then(() => db)
     .then(getProjects)
-    .then(sort)
-}
+  // .then(sort)
+} */
 
 function authorizeUpdate (project, auth0Id) {
   if (project.added_by_user !== auth0Id) {

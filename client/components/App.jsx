@@ -13,7 +13,7 @@ import Footer from './functions/Footer'
 import About from './pages/About'
 import Portfolio from './pages/Portfolio'
 import Contact from './pages/Contact'
-import Request from './pages/Request'
+// import Request from './pages/Request'
 import Home from './pages/Home'
 
 function App () {
@@ -26,7 +26,7 @@ function App () {
           <Route path='/about' element={<About />} />
           <Route path='/portfolio/:id' element={<Portfolio />} />
           <Route path='/contact' element={<Contact />} />
-          <Route path='/request' element={<Request />} />
+          {/* <Route path='/request' element={<Request />} /> */}
           <Route path='/home' element={<Home />} />
         </Routes>
       </div>

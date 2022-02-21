@@ -25,8 +25,7 @@ router.post('/', async (req, res) => {
   const auth0Id = req.user?.sub
   const newProject = {
     added_by_user: auth0Id,
-    name: project.name,
-    calories: project.calories
+    name: project.name
   }
   try {
     const projects = await db.addProject(newProject)
@@ -45,8 +44,7 @@ router.put('/', async (req, res) => {
   const projectToUpdate = {
     id: project.id,
     added_by_user: auth0Id,
-    name: project.name,
-    calories: project.calories
+    name: project.name
   }
   try {
     const projects = await db.updateProject(projectToUpdate, auth0Id)

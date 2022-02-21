@@ -42,14 +42,14 @@ function Nav () {
                   Projects
               </MenuButton>
               <MenuList spacing='10'>
-                <MenuGroup border='ButtonFace' spacing='10'>
+                {/* <MenuGroup border='ButtonFace' spacing='10'>
                   <MenuItem bg='purple.100'>{
-                    data.keiko.map((project) => {
-                      return <Link key={project.id} to={`/portfolio/${project.id}`} >
-                            Project{project.id} </Link>
+                  //  data.keiko.map((project) => {
+                  //    return <Link key={project.id} to={`/portfolio/${project.id}`} >
+                    //        Project{project.id} </Link>
                     })
                   } </MenuItem>
-                </MenuGroup>
+                </MenuGroup> */}
               </MenuList>
             </Menu>
             <Link to='/contact'>
